@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <title>Pokémon Team Generator</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Pokémon Team Generator</h1>
+
+    <form action="/team" method="POST">
+      <label for="name">Your name:</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="type">Team type:</label>
+      <select name="type" id="type">
+        <option value="random">Random Team</option>
+        <option value="normal">Normal</option>
+        <option value="fighting">Fighting</option>
+        <option value="flying">Flying</option>
+        <option value="poison">Poison</option>
+        <option value="ground">Ground</option>
+        <option value="rock">Rock</option>
+        <option value="bug">Bug</option>
+        <option value="ghost">Ghost</option>
+        <option value="steel">Steel</option>
+        <option value="fire">Fire</option>
+        <option value="water">Water</option>
+        <option value="grass">Grass</option>
+        <option value="electric">Electric</option>
+        <option value="psychic">Psychic</option>
+        <option value="ice">Ice</option>
+        <option value="dragon">Dragon</option>
+        <option value="dark">Dark</option>
+        <option value="fairy">Fairy</option>
+      </select>
+
+      <label>
+        <input type="checkbox" name="shiny" value="yes">
+        Random shiny?
+      </label>
+
+      <button type="submit">Build My Team</button>
+    </form>
+
+    <% if (locals.team) { %>
+      <h2>
+        <%= name %>'s Pokémon Team
+      </h2>
+
+      <div class="team">
+        <% team.forEach(pokemon => { %>
+          <% if (pokemon.name === shinyPokemon) { %>
+            <div class="pokemon shiny">
+              <img src="<%= pokemon.sprites.front_shiny %>" alt="<%= pokemon.name %>">
+              <p><%= pokemon.name %></p>
+            </div>
+          <% } else { %>
+            <div class="pokemon">
+              <img src="<%= pokemon.sprites.front_default %>" alt="<%= pokemon.name %>">
+              <p><%= pokemon.name %></p>
+            </div>
+          <% } %>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <% if (locals.error) { %>
+      <p>
+        <%= error %>
+      </p>
+    <% } %>
+  </div>
+</body>
+
+</html>
